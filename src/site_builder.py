@@ -136,6 +136,7 @@ def build_site_and_posts(
 
     write_robots(site_dir, site_base_url)
     write_sitemap(site_dir, urls_for_sitemap)
+    write_home_index(site_dir, site_base_url)
 
     return built
 
