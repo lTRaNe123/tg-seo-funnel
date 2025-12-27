@@ -163,3 +163,33 @@ def write_sitemap(site_dir: str, urls: List[str]) -> None:
     lines.append("</urlset>")
     with open(os.path.join(site_dir, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
+
+def write_home_index(site_dir: str, site_base_url: str) -> None:
+    base = site_base_url.rstrip("/")
+    html = f"""<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Статьи</title>
+  <style>
+    body{{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;max-width:820px;margin:32px auto;padding:0 16px;line-height:1.6}}
+    .card{{border:1px solid #e7e7e7;border-radius:16px;padding:20px}}
+    a{{color:#0b57d0;text-decoration:none}}
+    a:hover{{text-decoration:underline}}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Статьи</h1>
+    <p>Если ты пришёл сюда из поиска — открой страницу по ссылке из поста.</p>
+    <p>Технические файлы:</p>
+    <ul>
+      <li><a href="{base}/sitemap.xml">sitemap.xml</a></li>
+      <li><a href="{base}/robots.txt">robots.txt</a></li>
+    </ul>
+  </div>
+</body>
+</html>"""
+    with open(os.path.join(site_dir, "index.html"), "w", encoding="utf-8") as f:
+        f.write(html)
